@@ -15,7 +15,7 @@
     Your browser does not support the video tag.
   </video>
 
-  <!-- Overlay for readability (optional, can tweak opacity) -->
+
   <div class="absolute inset-0 bg-black/1"></div>
 
   <!-- Logo -->
@@ -23,24 +23,69 @@
 
   <!-- Button Section -->
   <div class="absolute left-[14%] top-[37%] flex flex-col space-y-4 z-10">
-        <a href="brochure.pdf" 
+
+    <a href="brochure.pdf" 
        class="border border-white text-white px-6 py-3 rounded-full text-lg font-medium text-center hover:bg-white hover:text-black transition">
        Brochure
     </a>
+
     <a href="whitepaper.pdf" 
        class="border border-white text-white px-6 py-3 rounded-full text-lg font-medium text-center hover:bg-white hover:text-black transition">
        White Paper
     </a>
 
-    <!-- <a href="memo1.pdf" download
-       class="border border-white text-white px-6 py-3 rounded-full text-lg font-medium text-center hover:bg-white hover:text-black transition">
-       Memo 1
-    </a>
-    <a href="memo2.pdf" download
-       class="border border-white text-white px-6 py-3 rounded-full text-lg font-medium text-center hover:bg-white hover:text-black transition">
-       Memo 2
-    </a> -->
+    <!-- Memo Series  -->
+    <button id="memoToggle"
+      class="border border-white text-white px-6 py-3 rounded-full text-lg font-medium text-center hover:bg-white hover:text-black transition relative">
+      Memo Series
+    </button>
+
+    <!--  Memo buttons -->
+    <div id="memoPane" class="hidden flex flex-col space-y-3 mt-2 pl-6 border-l border-white/40">
+      <a href="memos/memo2.pdf" target="_blank" rel="noopener noreferrer"
+         class="border border-white text-white px-5 py-2 rounded-full text-center hover:bg-white hover:text-black transition">
+         Science Operations
+      </a>
+      <a href="memos/memo3.pdf" target="_blank" rel="noopener noreferrer"
+         class="border border-white text-white px-5 py-2 rounded-full text-center hover:bg-white hover:text-black transition">
+         Star Catalog
+      </a>
+    </div>
   </div>
+
+  <!-- Memo pane -->
+  <script>
+    const memoToggle = document.getElementById('memoToggle');
+    const memoPane = document.getElementById('memoPane');
+
+    // Toggle  click
+    memoToggle.addEventListener('click', (event) => {
+      event.stopPropagation(); 
+      memoPane.classList.toggle('hidden');
+      memoPane.classList.toggle('animate-fadeIn');
+    });
+
+    // Close with outside click 
+    document.addEventListener('click', (event) => {
+      if (!memoPane.classList.contains('hidden')) {
+        const isClickInside = memoPane.contains(event.target) || memoToggle.contains(event.target);
+        if (!isClickInside) {
+          memoPane.classList.add('hidden');
+        }
+      }
+    });
+  </script>
+
+  <!-- Fade-in animation -->
+  <style>
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-5px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .animate-fadeIn {
+      animation: fadeIn 0.3s ease-out forwards;
+    }
+  </style>
 
 </body>
 </html>
